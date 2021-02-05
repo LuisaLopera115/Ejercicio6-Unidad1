@@ -12,7 +12,7 @@ void loop() {
   int milisActual = 0;
   if ((222 * milisegundos - milisActual) > 3000) {
     valpotenciometro = analogRead(potenciometro);
-    valormap = map(valpotenciometro, 0, 1023, -250, 250);
+    valormap = map(valpotenciometro, 0, 1020, -5, 5);
     Serial.println(valormap);
     milisActual = milisegundos;
 

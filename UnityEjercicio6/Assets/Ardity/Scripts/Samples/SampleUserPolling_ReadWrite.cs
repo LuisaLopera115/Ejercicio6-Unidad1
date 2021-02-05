@@ -8,22 +8,20 @@
 
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 /**
  * Sample for reading using polling by yourself, and writing too.
  */
 public class SampleUserPolling_ReadWrite : MonoBehaviour
 {
-    public Text Poten;
+    public GameObject Flor;
     public SerialController serialController;
-    int valorpoten = 0;
-
+    float convert = 0;
     // Initialization
     void Start()
     {
         serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
-
+        
         Debug.Log("Press A or Z to execute some actions");
     }
 
@@ -64,9 +62,10 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
         else if (ReferenceEquals(message, SerialController.SERIAL_DEVICE_DISCONNECTED))
             Debug.Log("Connection attempt failed or disconnection detected");
         else
+        {
             Debug.Log("Message arrived: " + message);
-            Poten.text = message;
-            valorpoten = int.Parse(message);
-            Poten.transform.position = new Vector3(valorpoten,Poten.transform.position.y, Poten.transform.position.z);
+            convert = int.Parse(message);
+            Flor.transform.position = new Vector3((float)convert, Flor.transform.position.y, transform.position.z);
+        }
     }
 }

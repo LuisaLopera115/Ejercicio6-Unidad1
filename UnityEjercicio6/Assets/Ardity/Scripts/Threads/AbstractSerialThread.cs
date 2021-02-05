@@ -189,9 +189,9 @@ public abstract class AbstractSerialThread
         serialPort.ReadTimeout = readTimeout;
         serialPort.WriteTimeout = writeTimeout;
         serialPort.Open();
-        /*
+
         if (enqueueStatusMessages)
-            inputQueue.Enqueue(SerialController.SERIAL_DEVICE_CONNECTED);*/
+            inputQueue.Enqueue(SerialController.SERIAL_DEVICE_CONNECTED);
     }
 
     // ------------------------------------------------------------------------
