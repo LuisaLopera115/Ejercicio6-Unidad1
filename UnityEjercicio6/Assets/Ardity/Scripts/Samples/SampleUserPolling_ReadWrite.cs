@@ -14,8 +14,10 @@ using System.Collections;
  */
 public class SampleUserPolling_ReadWrite : MonoBehaviour
 {
-    public GameObject Flor;
+    public GameObject player;
+    public GameObject bullet;
     public SerialController serialController;
+    public Transform firepoint;
     float convert = 0;
     // Initialization
     void Start()
@@ -28,12 +30,6 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
     // Executed each frame
     void Update()
     {
-        //---------------------------------------------------------------------
-        // Send data
-        //---------------------------------------------------------------------
-
-        // If you press one of these keys send it to the serial device. A
-        // sample serial device that accepts this input is given in the README.
         if (Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("Sending A");
@@ -45,11 +41,6 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
             Debug.Log("Sending Z");
             serialController.SendSerialMessage("Z");
         }
-
-
-        //---------------------------------------------------------------------
-        // Receive data
-        //---------------------------------------------------------------------
 
         string message = serialController.ReadSerialMessage();
 
@@ -63,9 +54,15 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
             Debug.Log("Connection attempt failed or disconnection detected");
         else
         {
-            Debug.Log("Message arrived: " + message);
             convert = int.Parse(message);
-            Flor.transform.position = new Vector3((float)convert, Flor.transform.position.y, transform.position.z);
+            player.transform.position = new Vector3((float)convert, player.transform.position.y, transform.position.z);
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Shoot();
+            }
         }
+    }
+    void Shoot() {
+        Instantiate(bullet,firepoint.position,firepoint.rotation);
     }
 }
