@@ -16,8 +16,11 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
 {
     public GameObject player;
     public GameObject bullet;
+
     public SerialController serialController;
+    public SerialController2 SerialController2;
     public Transform firepoint;
+
     float convert = 0;
     // Initialization
     void Start()
