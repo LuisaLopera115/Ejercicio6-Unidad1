@@ -6,10 +6,7 @@ using UnityEngine;
 public class SerialThreadBytesProtocol : AbstractSerialThread
 {
     // Buffer where a single message must fit
-    private byte[] buffer = new byte[1024];
-    private int bufferUsed = 0;
-
-
+    private byte[] buffer = new byte[1];
     public SerialThreadBytesProtocol(string portName,
                                        int baudRate,
                                        int delayBeforeReconnecting,
@@ -27,6 +24,16 @@ public class SerialThreadBytesProtocol : AbstractSerialThread
 
     protected override object ReadFromWire(SerialPort serialPort)
     {
-        return serialPort.ReadLine();
+        if (serialPort.BytesToRead > 0)
+        {
+            serialPort.Read(buffer, 0, 1);
+            Debug.Log("entra el dato");
+            Debug.Log(buffer[0].ToString("X2"));
+            return buffer;
+        }
+        else{
+            return null;
+        }  
+            
     }
-    }
+}

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class SerialControler2 : MonoBehaviour
+public class SerialController2 : MonoBehaviour
 {
     [Tooltip("Port name with which the SerialPort object will be created.")]
-    public string portName = "/dev/ttyUSB0";
+    public string portName = "COM7";
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
     public int baudRate = 57600;

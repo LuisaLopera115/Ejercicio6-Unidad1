@@ -1,6 +1,7 @@
 int potenciometro = A0;
 int valpotenciometro = 0;
 int valormap = 0;
+unsigned long previousMillis = 0;  
 void setup() {
   Serial.begin(9600);
   pinMode(potenciometro, INPUT);
@@ -8,12 +9,12 @@ void setup() {
 
 void loop() {
 
-  unsigned milisegundos = millis();
+  unsigned long currentMillis = millis();
   int milisActual = 0;
-  if ((222 * milisegundos - milisActual) > 1000) {
+  if ((currentMillis - previousMillis) > 100) {
+    previousMillis =currentMillis;
     valpotenciometro = analogRead(potenciometro);
     valormap = map(valpotenciometro, 0, 1020, -5, 5);
     Serial.println(valormap);
-    milisActual = milisegundos;
   }
 }

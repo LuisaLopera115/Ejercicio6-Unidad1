@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Text;
 
 /**
  * Sample for reading using polling by yourself, and writing too.
@@ -33,36 +34,21 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
     // Executed each frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("Sending A");
-            serialController.SendSerialMessage("A");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log("Sending Z");
-            serialController.SendSerialMessage("Z");
-        }
-
         string message = serialController.ReadSerialMessage();
+        byte[] message2 = SerialController2.ReadSerialMessage();
 
-        if (message == null)
-            return;
-
-        // Check if the message is plain data or a connect/disconnect event.
-        if (ReferenceEquals(message, SerialController.SERIAL_DEVICE_CONNECTED))
-            Debug.Log("Connection established");
-        else if (ReferenceEquals(message, SerialController.SERIAL_DEVICE_DISCONNECTED))
-            Debug.Log("Connection attempt failed or disconnection detected");
+        if (message == null) { return; }
         else
         {
             convert = int.Parse(message);
             player.transform.position = new Vector3((float)convert, player.transform.position.y, transform.position.z);
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                Shoot();
-            }
+        }
+
+        if (message2 == null){return;}
+        else
+        {
+            string A4 = message2[0].ToString("X2");
+            Debug.Log(A4);
         }
     }
     void Shoot() {
