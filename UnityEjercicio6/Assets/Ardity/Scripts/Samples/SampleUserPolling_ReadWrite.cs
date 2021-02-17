@@ -26,12 +26,9 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
     // Initialization
     void Start()
     {
-        serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
-        
-        Debug.Log("Press A or Z to execute some actions");
+   
     }
 
-    // Executed each frame
     void Update()
     {
         string message = serialController.ReadSerialMessage();

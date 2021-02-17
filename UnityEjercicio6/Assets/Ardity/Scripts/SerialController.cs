@@ -1,32 +1,14 @@
-﻿/**
- * Ardity (Serial Communication for Arduino + Unity)
- * Author: Daniel Wilches <dwilches@gmail.com>
- *
- * This work is released under the Creative Commons Attributions license.
- * https://creativecommons.org/licenses/by/2.0/
- */
-
+﻿
 using UnityEngine;
 using System.Threading;
+using UnityEngine.UI;
 
-/**
- * This class allows a Unity program to continually check for messages from a
- * serial device.
- *
- * It creates a Thread that communicates with the serial port and continually
- * polls the messages on the wire.
- * That Thread puts all the messages inside a Queue, and this SerialController
- * class polls that queue by means of invoking SerialThread.GetSerialMessage().
- *
- * The serial device must send its messages separated by a newline character.
- * Neither the SerialController nor the SerialThread perform any validation
- * on the integrity of the message. It's up to the one that makes sense of the
- * data.
- */
 public class SerialController : MonoBehaviour
 {
+    bool abrepuerto = false;
+  
     [Tooltip("Port name with which the SerialPort object will be created.")]
-    public string portName = "COM3";
+    public Text portName;
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
     public int baudRate = 9600;
@@ -55,7 +37,16 @@ public class SerialController : MonoBehaviour
     protected Thread thread;
     protected SerialThreadLines serialThread;
 
-
+    public void Puerto(Text s) {
+        
+        portName = s;
+        if (s.ToString() =="COM3")
+        {
+            abrepuerto = true;
+            Debug.Log("entra");
+        }
+        
+    }
     // ------------------------------------------------------------------------
     // Invoked whenever the SerialController gameobject is activated.
     // It creates a new thread that tries to connect to the serial device
@@ -63,12 +54,15 @@ public class SerialController : MonoBehaviour
     // ------------------------------------------------------------------------
     void OnEnable()
     {
-        serialThread = new SerialThreadLines(portName, 
-                                             baudRate, 
-                                             reconnectionDelay,
-                                             maxUnreadMessages);
+        
+        serialThread = new SerialThreadLines(portName.ToString(),
+                                                baudRate,
+                                                reconnectionDelay,
+                                                maxUnreadMessages);
         thread = new Thread(new ThreadStart(serialThread.RunForever));
         thread.Start();
+        Debug.Log(portName);
+        
     }
 
     // ------------------------------------------------------------------------
