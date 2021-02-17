@@ -38,17 +38,17 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
         byte[] message2 = SerialController2.ReadSerialMessage();
 
         if (message == null) { return; }
-        else
-        {
-            convert = int.Parse(message);
-            player.transform.position = new Vector3((float)convert, player.transform.position.y, transform.position.z);
-        }
 
-        if (message2 == null){return;}
-        else
-        {
-            string A4 = message2[0].ToString("X2");
-            Debug.Log(A4);
+        convert = int.Parse(message);
+        player.transform.position = new Vector3((float)convert, player.transform.position.y, transform.position.z);
+
+        if (message2 == null) { return; }
+        
+        Debug.Log("DISPARA USER");
+        string mg = message2[0].ToString("X2");
+
+        if (mg == "3E") {
+            Shoot();
         }
     }
     void Shoot() {
