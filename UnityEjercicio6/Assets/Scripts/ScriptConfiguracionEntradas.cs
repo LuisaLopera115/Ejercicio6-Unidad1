@@ -14,17 +14,11 @@ public class ScriptConfiguracionEntradas : MonoBehaviour
 
     public void ActivaController() {
         Serialcontroler.SetActive(true);
+        Serialcontroler2.SetActive(true);
     }
     public void DesactivaController()
     {
         Serialcontroler.SetActive(false);
-    }
-    public void ActivaController2()
-    {
-        Serialcontroler2.SetActive(true);
-    }
-    public void DesactivaController2()
-    {
         Serialcontroler2.SetActive(false);
     }
 
