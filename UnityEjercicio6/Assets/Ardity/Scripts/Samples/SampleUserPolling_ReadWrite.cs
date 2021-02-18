@@ -8,59 +8,62 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Text;
+using System.Threading;
 
 /**
  * Sample for reading using polling by yourself, and writing too.
  */
 public class SampleUserPolling_ReadWrite : MonoBehaviour
 {
+    private Thread _t1;
+    private Thread _t2;
+
     public GameObject player;
     public GameObject bullet;
+
     public SerialController serialController;
+    public SerialController2 SerialController2;
     public Transform firepoint;
+
     float convert = 0;
     // Initialization
     void Start()
     {
-        serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
-        
-        Debug.Log("Press A or Z to execute some actions");
+
     }
 
-    // Executed each frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        Bonton();
+        Potenciometro();
+        
+    }
+
+    void Bonton()
+    {
+        while (true)
         {
-            Debug.Log("Sending A");
-            serialController.SendSerialMessage("A");
-        }
+            byte[] message2 = SerialController2.ReadSerialMessage();
+            if (message2 == null) { return; }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log("Sending Z");
-            serialController.SendSerialMessage("Z");
-        }
+            Debug.Log("DISPARA USER");
+            string mg = message2[0].ToString("X2");
 
-        string message = serialController.ReadSerialMessage();
-
-        if (message == null)
-            return;
-
-        // Check if the message is plain data or a connect/disconnect event.
-        if (ReferenceEquals(message, SerialController.SERIAL_DEVICE_CONNECTED))
-            Debug.Log("Connection established");
-        else if (ReferenceEquals(message, SerialController.SERIAL_DEVICE_DISCONNECTED))
-            Debug.Log("Connection attempt failed or disconnection detected");
-        else
-        {
-            convert = int.Parse(message);
-            player.transform.position = new Vector3((float)convert, player.transform.position.y, transform.position.z);
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (mg == "3E")
             {
                 Shoot();
             }
         }
+    }
+    void Potenciometro()
+    {
+        string message = serialController.ReadSerialMessage();
+
+        if (message == null) { return; }
+
+        convert = int.Parse(message);
+        player.transform.position = new Vector3((float)convert, player.transform.position.y, transform.position.z);
     }
     void Shoot() {
         Instantiate(bullet,firepoint.position,firepoint.rotation);

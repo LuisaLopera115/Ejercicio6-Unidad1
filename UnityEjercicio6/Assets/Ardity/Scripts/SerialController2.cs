@@ -1,16 +1,15 @@
-﻿
-using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
-using UnityEngine.UI;
+using UnityEngine;
 
-public class SerialController : MonoBehaviour
+public class SerialController2 : MonoBehaviour
 {
-  
     [Tooltip("Port name with which the SerialPort object will be created.")]
-    public string portName = "COM3";
+    public string portName = "COM7";
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
-    public int baudRate = 9600;
+    public int baudRate = 57600;
 
     [Tooltip("Reference to an scene object that will receive the events of connection, " +
              "disconnection and the messages from the serial device.")]
@@ -24,33 +23,22 @@ public class SerialController : MonoBehaviour
              "New messages will be discarded.")]
     public int maxUnreadMessages = 1;
 
-    protected Thread thread;
-    protected SerialThreadLines serialThread;
+    [Tooltip("Maximum number of unread data messages in the queue. " +
+             "New messages will be discarded.")]
 
-    public void EntradaPuerto(int val) {
-        if (val == 0)
-        {
-            portName = "COM3";
-        }
-        if (val == 1)
-        {
-            portName = "COM7";
-        }
-    }
-    // ------------------------------------------------------------------------
-    // Invoked whenever the SerialController gameobject is activated.
-    // It creates a new thread that tries to connect to the serial device
-    // and start reading from it.
-    // ------------------------------------------------------------------------
+    // Internal reference to the Thread and the object that runs in it.
+    protected Thread thread;
+    protected SerialThreadBytesProtocol serialThread;
+
+
     void OnEnable()
     {
-        serialThread = new SerialThreadLines(portName,
-                                                baudRate,
-                                                reconnectionDelay,
-                                                maxUnreadMessages);
+        serialThread = new SerialThreadBytesProtocol(portName,
+                                                       baudRate,
+                                                       reconnectionDelay,
+                                                       maxUnreadMessages);
         thread = new Thread(new ThreadStart(serialThread.RunForever));
         thread.Start();
-        Debug.Log(portName.ToString());
     }
 
     // ------------------------------------------------------------------------
@@ -95,40 +83,29 @@ public class SerialController : MonoBehaviour
             return;
 
         // Read the next message from the queue
-        string message = ReadSerialMessage();
+        byte[] message = ReadSerialMessage();
         if (message == null)
             return;
 
+        // Check if the message is plain data or a connect/disconnect event.
+        messageListener.SendMessage("OnMessageArrived", message);
     }
 
-    // ------------------------------------------------------------------------
-    // Returns a new unread message from the serial device. You only need to
-    // call this if you don't provide a message listener.
-    // ------------------------------------------------------------------------
-    public string ReadSerialMessage()
+    public byte[] ReadSerialMessage()
     {
         // Read the next message from the queue
-        return (string)serialThread.ReadMessage();
+        return (byte[])serialThread.ReadMessage();
     }
 
-    // ------------------------------------------------------------------------
-    // Puts a message in the outgoing queue. The thread object will send the
-    // message to the serial device when it considers it's appropriate.
-    // ------------------------------------------------------------------------
-    public void SendSerialMessage(string message)
+    public void SendSerialMessage(byte[] message)
     {
         serialThread.SendMessage(message);
     }
 
-    // ------------------------------------------------------------------------
-    // Executes a user-defined function before Unity closes the COM port, so
-    // the user can send some tear-down message to the hardware reliably.
-    // ------------------------------------------------------------------------
     public delegate void TearDownFunction();
     private TearDownFunction userDefinedTearDownFunction;
     public void SetTearDownFunction(TearDownFunction userFunction)
     {
         this.userDefinedTearDownFunction = userFunction;
     }
-
 }

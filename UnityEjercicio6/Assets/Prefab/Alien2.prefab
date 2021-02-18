@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 6709250557339700866}
   - component: {fileID: 4343901012086644266}
   - component: {fileID: 2422282117553684847}
-  m_Layer: 0
+  - component: {fileID: -2986446047331757509}
+  - component: {fileID: -545217324941393978}
+  m_Layer: 8
   m_Name: Alien2
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -108,3 +110,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.96}
   m_EdgeRadius: 0
+--- !u!114 &-2986446047331757509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495746369253003574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3eed34169cf6cc48900123c8c066a66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alienSpeed: 1
+  rigibodiAlien: {fileID: -545217324941393978}
+  alienBullet: {fileID: 6107813017342887958, guid: b60ecb0c14d092c4dbf2d933bd21bf36,
+    type: 3}
+--- !u!50 &-545217324941393978
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495746369253003574}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
