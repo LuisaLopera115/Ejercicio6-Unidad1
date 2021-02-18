@@ -14,7 +14,7 @@ void loop() {
   if ((currentMillis - previousMillis) > 100) {
     previousMillis =currentMillis;
     valpotenciometro = analogRead(potenciometro);
-    valormap = map(valpotenciometro, 0, 1020, -5, 5);
+    valormap = map(valpotenciometro, 0, 1020, -9, 9);
     Serial.println(valormap);
   }
 }

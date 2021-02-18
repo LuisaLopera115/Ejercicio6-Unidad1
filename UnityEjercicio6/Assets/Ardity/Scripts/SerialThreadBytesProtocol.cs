@@ -7,13 +7,14 @@ public class SerialThreadBytesProtocol : AbstractSerialThread
 {
     // Buffer where a single message must fit
     private byte[] buffer = new byte[1];
+    
     public SerialThreadBytesProtocol(string portName,
                                        int baudRate,
                                        int delayBeforeReconnecting,
                                        int maxUnreadMessages)
         : base(portName, baudRate, delayBeforeReconnecting, maxUnreadMessages, false)
     {
-
+        
     }
 
     protected override void SendToWire(object message, SerialPort serialPort)

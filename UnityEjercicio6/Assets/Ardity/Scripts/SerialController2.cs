@@ -91,29 +91,17 @@ public class SerialController2 : MonoBehaviour
         messageListener.SendMessage("OnMessageArrived", message);
     }
 
-    // ------------------------------------------------------------------------
-    // Returns a new unread message from the serial device. You only need to
-    // call this if you don't provide a message listener.
-    // ------------------------------------------------------------------------
     public byte[] ReadSerialMessage()
     {
         // Read the next message from the queue
         return (byte[])serialThread.ReadMessage();
     }
 
-    // ------------------------------------------------------------------------
-    // Puts a message in the outgoing queue. The thread object will send the
-    // message to the serial device when it considers it's appropriate.
-    // ------------------------------------------------------------------------
     public void SendSerialMessage(byte[] message)
     {
         serialThread.SendMessage(message);
     }
 
-    // ------------------------------------------------------------------------
-    // Executes a user-defined function before Unity closes the COM port, so
-    // the user can send some tear-down message to the hardware reliably.
-    // ------------------------------------------------------------------------
     public delegate void TearDownFunction();
     private TearDownFunction userDefinedTearDownFunction;
     public void SetTearDownFunction(TearDownFunction userFunction)

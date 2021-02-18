@@ -9,12 +9,16 @@
 using UnityEngine;
 using System.Collections;
 using System.Text;
+using System.Threading;
 
 /**
  * Sample for reading using polling by yourself, and writing too.
  */
 public class SampleUserPolling_ReadWrite : MonoBehaviour
 {
+    private Thread _t1;
+    private Thread _t2;
+
     public GameObject player;
     public GameObject bullet;
 
@@ -26,27 +30,40 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
     // Initialization
     void Start()
     {
-   
+
     }
 
     void Update()
     {
+        Bonton();
+        Potenciometro();
+        
+    }
+
+    void Bonton()
+    {
+        while (true)
+        {
+            byte[] message2 = SerialController2.ReadSerialMessage();
+            if (message2 == null) { return; }
+
+            Debug.Log("DISPARA USER");
+            string mg = message2[0].ToString("X2");
+
+            if (mg == "3E")
+            {
+                Shoot();
+            }
+        }
+    }
+    void Potenciometro()
+    {
         string message = serialController.ReadSerialMessage();
-        byte[] message2 = SerialController2.ReadSerialMessage();
 
         if (message == null) { return; }
 
         convert = int.Parse(message);
         player.transform.position = new Vector3((float)convert, player.transform.position.y, transform.position.z);
-
-        if (message2 == null) { return; }
-        
-        Debug.Log("DISPARA USER");
-        string mg = message2[0].ToString("X2");
-
-        if (mg == "3E") {
-            Shoot();
-        }
     }
     void Shoot() {
         Instantiate(bullet,firepoint.position,firepoint.rotation);

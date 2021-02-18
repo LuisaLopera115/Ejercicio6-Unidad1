@@ -21,7 +21,7 @@ using System.Threading;
  * open this file unless you are introducing incompatibilities for upcoming
  * versions.
  */
-public abstract class AbstractSerialThread
+public abstract class AbstractSerialThread2
 {
     // Parameters passed from SerialController, used for connecting to the
     // serial device as explained in the SerialController documentation.
@@ -53,7 +53,7 @@ public abstract class AbstractSerialThread
 
     private bool enqueueStatusMessages = false;
 
-  
+
     /**************************************************************************
      * Methods intended to be invoked from the Unity thread.
      *************************************************************************/
@@ -62,20 +62,17 @@ public abstract class AbstractSerialThread
     // Constructs the thread object. This object is not a thread actually, but
     // its method 'RunForever' can later be used to create a real Thread.
     // ------------------------------------------------------------------------
-    public AbstractSerialThread(string portName,
+    public AbstractSerialThread2(string portName,
                                 int baudRate,
                                 int delayBeforeReconnecting,
                                 int maxUnreadMessages,
                                 bool enqueueStatusMessages)
     {
-       
-        
         this.portName = portName;
         this.baudRate = baudRate;
         this.delayBeforeReconnecting = delayBeforeReconnecting;
         this.maxUnreadMessages = maxUnreadMessages;
         this.enqueueStatusMessages = enqueueStatusMessages;
-        
 
         inputQueue = Queue.Synchronized(new Queue());
         outputQueue = Queue.Synchronized(new Queue());
@@ -150,7 +147,6 @@ public abstract class AbstractSerialThread
                     // reading/writing to the device. Log the detailed message
                     // to the console and notify the listener.
                     Debug.LogWarning("Exception: " + ioe.Message + " StackTrace: " + ioe.StackTrace);
-                   
 
                     // As I don't know in which stage the SerialPort threw the
                     // exception I call this method that is very safe in

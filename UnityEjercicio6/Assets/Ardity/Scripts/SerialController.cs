@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class SerialController : MonoBehaviour
 {
-    bool abrepuerto = false;
   
     [Tooltip("Port name with which the SerialPort object will be created.")]
-    public Text portName;
+    public string portName = "COM3";
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
     public int baudRate = 9600;
@@ -25,27 +24,18 @@ public class SerialController : MonoBehaviour
              "New messages will be discarded.")]
     public int maxUnreadMessages = 1;
 
-    // Constants used to mark the start and end of a connection. There is no
-    // way you can generate clashing messages from your serial device, as I
-    // compare the references of these strings, no their contents. So if you
-    // send these same strings from the serial device, upon reconstruction they
-    // will have different reference ids.
-    public const string SERIAL_DEVICE_CONNECTED = "__Connected__";
-    public const string SERIAL_DEVICE_DISCONNECTED = "__Disconnected__";
-
-    // Internal reference to the Thread and the object that runs in it.
     protected Thread thread;
     protected SerialThreadLines serialThread;
 
-    public void Puerto(Text s) {
-        
-        portName = s;
-        if (s.ToString() =="COM3")
+    public void EntradaPuerto(int val) {
+        if (val == 0)
         {
-            abrepuerto = true;
-            Debug.Log("entra");
+            portName = "COM3";
         }
-        
+        if (val == 1)
+        {
+            portName = "COM7";
+        }
     }
     // ------------------------------------------------------------------------
     // Invoked whenever the SerialController gameobject is activated.
@@ -54,15 +44,13 @@ public class SerialController : MonoBehaviour
     // ------------------------------------------------------------------------
     void OnEnable()
     {
-        
-        serialThread = new SerialThreadLines(portName.ToString(),
+        serialThread = new SerialThreadLines(portName,
                                                 baudRate,
                                                 reconnectionDelay,
                                                 maxUnreadMessages);
         thread = new Thread(new ThreadStart(serialThread.RunForever));
         thread.Start();
-        Debug.Log(portName);
-        
+        Debug.Log(portName.ToString());
     }
 
     // ------------------------------------------------------------------------
@@ -111,13 +99,6 @@ public class SerialController : MonoBehaviour
         if (message == null)
             return;
 
-        // Check if the message is plain data or a connect/disconnect event.
-        if (ReferenceEquals(message, SERIAL_DEVICE_CONNECTED))
-            messageListener.SendMessage("OnConnectionEvent", true);
-        else if (ReferenceEquals(message, SERIAL_DEVICE_DISCONNECTED))
-            messageListener.SendMessage("OnConnectionEvent", false);
-        else
-            messageListener.SendMessage("OnMessageArrived", message);
     }
 
     // ------------------------------------------------------------------------

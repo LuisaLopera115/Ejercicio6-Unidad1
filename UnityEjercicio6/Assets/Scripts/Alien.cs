@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Alien : MonoBehaviour
 {
-    float alienSpeed = 1f;
+    float alienSpeed = 2f;
     public Rigidbody2D rigibodiAlien;
     public GameObject alienBullet;
     private float minFireRate = 15.0f;
@@ -14,7 +14,7 @@ public class Alien : MonoBehaviour
     {
         rigibodiAlien = GetComponent<Rigidbody2D>();
         rigibodiAlien.velocity = new Vector2(1,0)* alienSpeed;
-        fireWaitTime = fireWaitTime + Random.Range(minFireRate, maxFireRate);
+        //fireWaitTime = fireWaitTime + Random.Range(minFireRate, maxFireRate);
     }
     // gira cada vez que coliciona con los muros
     void Gira(int direccion) {
