@@ -6,13 +6,15 @@ public class ScriptConfiguracionEntradas : MonoBehaviour
 {
     public GameObject Serialcontroler;
     public GameObject Serialcontroler2;
+    public GameObject canvas;
     public GameObject Aliens;
     void Start()
     {
         
     }
 
-    public void ActivaController() {
+    public void ActivaController()
+    {
         Serialcontroler.SetActive(true);
         Serialcontroler2.SetActive(true);
     }
@@ -25,6 +27,7 @@ public class ScriptConfiguracionEntradas : MonoBehaviour
     public void ActivaJuego()
     {
         Aliens.SetActive(true);
+        canvas.SetActive(false);
     }
 
     // Update is called once per frame

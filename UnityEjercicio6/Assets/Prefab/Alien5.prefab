@@ -122,9 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3eed34169cf6cc48900123c8c066a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alienSpeed: 1
   rigibodiAlien: {fileID: -6124381153233642503}
-  alienBullet: {fileID: 6107813017342887958, guid: b60ecb0c14d092c4dbf2d933bd21bf36,
+  alienBullet: {fileID: 3199556264936433114, guid: a1f9c8fdc49b6344f944d91d8de2ca8f,
     type: 3}
 --- !u!50 &-6124381153233642503
 Rigidbody2D:

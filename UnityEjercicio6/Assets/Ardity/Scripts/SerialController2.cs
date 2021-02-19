@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using System.Threading;
 using UnityEngine;
 
 public class SerialController2 : MonoBehaviour
 {
+    
     [Tooltip("Port name with which the SerialPort object will be created.")]
-    public string portName = "COM7";
+    string portName = "COM7";
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
-    public int baudRate = 57600;
+    int baudRate = 57600;
 
     [Tooltip("Reference to an scene object that will receive the events of connection, " +
              "disconnection and the messages from the serial device.")]
@@ -29,10 +31,21 @@ public class SerialController2 : MonoBehaviour
     // Internal reference to the Thread and the object that runs in it.
     protected Thread thread;
     protected SerialThreadBytesProtocol serialThread;
+    public SerialStart serialStart;
 
+    public void EntradaPuerto(Int32 val)
+    {
+        portName = serialStart.serialPorts[val];
+    }
+    public void BaudRate(Int32 val)
+    {
+        baudRate = int.Parse(serialStart.baudRates[val]);
+        Debug.Log(baudRate.ToString());
+    }
 
     void OnEnable()
     {
+        Debug.Log(portName);
         serialThread = new SerialThreadBytesProtocol(portName,
                                                        baudRate,
                                                        reconnectionDelay,
@@ -94,7 +107,14 @@ public class SerialController2 : MonoBehaviour
     public byte[] ReadSerialMessage()
     {
         // Read the next message from the queue
-        return (byte[])serialThread.ReadMessage();
+        try
+        {
+            return (byte[])serialThread.ReadMessage();
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
     }
 
     public void SendSerialMessage(byte[] message)
