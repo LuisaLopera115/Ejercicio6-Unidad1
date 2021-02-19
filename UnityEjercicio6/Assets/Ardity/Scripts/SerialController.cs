@@ -11,7 +11,7 @@ public class SerialController : MonoBehaviour
     string portName = "COM3";
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
-    int baudRate = 9600;
+    int baudRate = 0;
 
     [Tooltip("Reference to an scene object that will receive the events of connection, " +
              "disconnection and the messages from the serial device.")]
@@ -28,12 +28,7 @@ public class SerialController : MonoBehaviour
     protected Thread thread;
     protected SerialThreadLines serialThread;
     public SerialStart serialStart;
-
-    public void EntradaPuerto(Int32 val)
-    {
-        portName = serialStart.serialPorts[val];
-    }
-    public void BaudRate(int val)
+    public void BaudRate(Int32 val)
     {
         if (val == 0)
         {
@@ -47,7 +42,15 @@ public class SerialController : MonoBehaviour
         {
             baudRate = 38400;
         }
+
+        Debug.Log(val.ToString());
+        Debug.Log(baudRate.ToString());
     }
+    public void EntradaPuerto(Int32 val)
+    {
+        portName = serialStart.serialPorts[val];
+    }
+    
     // ------------------------------------------------------------------------
     // Invoked whenever the SerialController gameobject is activated.
     // It creates a new thread that tries to connect to the serial device
@@ -56,7 +59,6 @@ public class SerialController : MonoBehaviour
     void OnEnable()
     {
         Debug.Log(portName);
-        Debug.Log(baudRate.ToString());
         serialThread = new SerialThreadLines(portName,
                                                 baudRate,
                                                 reconnectionDelay,

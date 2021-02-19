@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class SerialStart : MonoBehaviour
 {
-    public string[] baudRates = { "9600", "19200", "38400", "57600", "74880", "115200" };
+    public string[] baudRates = { "9600", "19200", "38400"};
     public string[] serialPorts;
     public Dropdown listaPotenciometro, listaBoton, baudRatepoten, baudRatesBoton;
 

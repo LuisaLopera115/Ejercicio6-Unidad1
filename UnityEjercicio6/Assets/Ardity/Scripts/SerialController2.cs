@@ -11,7 +11,7 @@ public class SerialController2 : MonoBehaviour
     string portName = "COM7";
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
-    int baudRate = 57600;
+    int baudRate = 0;
 
     [Tooltip("Reference to an scene object that will receive the events of connection, " +
              "disconnection and the messages from the serial device.")]
@@ -50,13 +50,14 @@ public class SerialController2 : MonoBehaviour
         {
             baudRate = 38400;
         }
-        
+        Debug.Log(val.ToString());
+        Debug.Log(baudRate.ToString());
     }
 
     void OnEnable()
     {
         Debug.Log(portName);
-        Debug.Log(baudRate.ToString());
+
         serialThread = new SerialThreadBytesProtocol(portName,
                                                        baudRate,
                                                        reconnectionDelay,
