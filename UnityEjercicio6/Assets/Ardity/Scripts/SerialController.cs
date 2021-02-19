@@ -35,8 +35,18 @@ public class SerialController : MonoBehaviour
     }
     public void BaudRate(int val)
     {
-        baudRate = int.Parse(serialStart.baudRates[val]);
-        Debug.Log(baudRate.ToString());
+        if (val == 0)
+        {
+            baudRate = 9600;
+        }
+        if (val == 1)
+        {
+            baudRate = 19200;
+        }
+        if (val == 2)
+        {
+            baudRate = 38400;
+        }
     }
     // ------------------------------------------------------------------------
     // Invoked whenever the SerialController gameobject is activated.
@@ -46,6 +56,7 @@ public class SerialController : MonoBehaviour
     void OnEnable()
     {
         Debug.Log(portName);
+        Debug.Log(baudRate.ToString());
         serialThread = new SerialThreadLines(portName,
                                                 baudRate,
                                                 reconnectionDelay,
