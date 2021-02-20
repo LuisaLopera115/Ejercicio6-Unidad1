@@ -39,10 +39,10 @@ public class SerialController2 : MonoBehaviour
     }
     public void BaudRate(Int32 val)
     {
-        if (val == 0) {
+        if (val == 1) {
             baudRate = 9600;
         }
-        if (val == 1)
+        if (val == 0)
         {
             baudRate = 19200;
         }
@@ -50,13 +50,13 @@ public class SerialController2 : MonoBehaviour
         {
             baudRate = 38400;
         }
-        Debug.Log(val.ToString());
-        Debug.Log(baudRate.ToString());
+        //Debug.Log(val.ToString());
+        //Debug.Log(baudRate.ToString());
     }
 
     void OnEnable()
     {
-        Debug.Log(portName);
+        //Debug.Log(portName);
 
         serialThread = new SerialThreadBytesProtocol(portName,
                                                        baudRate,

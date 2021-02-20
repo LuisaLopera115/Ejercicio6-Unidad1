@@ -13,7 +13,7 @@ public class BulletEnemy : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "bunker")
         {
@@ -21,11 +21,15 @@ public class BulletEnemy : MonoBehaviour
             Destroy(gameObject);
             Destroy(collision.gameObject);
         }
+
         if (collision.gameObject.tag == "Player")
         {
+
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.explote);
             Destroy(gameObject);
             Instantiate(enLamas, collision.gameObject.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
+            // Escena de game over 
         }
     }
 }

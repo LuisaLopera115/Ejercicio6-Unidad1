@@ -16,8 +16,6 @@ using System.Threading;
  */
 public class SampleUserPolling_ReadWrite : MonoBehaviour
 {
-    private Thread _t1;
-    private Thread _t2;
 
     public GameObject player;
     public GameObject bullet;
@@ -47,7 +45,7 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
             byte[] message2 = SerialController2.ReadSerialMessage();
             if (message2 == null) { return; }
 
-            Debug.Log("DISPARA USER");
+            //Debug.Log("DISPARA USER");
             string mg = message2[0].ToString("X2");
 
             if (mg == "3E")
@@ -67,5 +65,6 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
     }
     void Shoot() {
         Instantiate(bullet,firepoint.position,firepoint.rotation);
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.shoot);
     }
 }

@@ -3,7 +3,9 @@ guid: c3418cc5e4ea6b74daa0a0a0d6bd7372
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - enLamas: {fileID: 3857451591051410440, guid: 2e6234eb9685acf46986c32700765c7b,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

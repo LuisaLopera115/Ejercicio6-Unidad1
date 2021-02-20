@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public Sprite invaderDie;
+
     void Start()
     {
-        
     }
-
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "bunker") {
@@ -23,9 +18,12 @@ public class Bullet : MonoBehaviour
         }
         if (collision.gameObject.tag == "enemy")
         {
-            Debug.Log("funciona");
+            Debug.Log("Colisiona con enemigo");
+            collision.GetComponent<SpriteRenderer>().sprite = invaderDie;
+           
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.invaderKilled);
             Destroy(gameObject);
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject,0.5f);
         }
     }
 }

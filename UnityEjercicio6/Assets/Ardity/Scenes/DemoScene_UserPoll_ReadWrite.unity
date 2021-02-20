@@ -767,13 +767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3dd4a9363b29243a12ae4b9edde8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baudRates:
-  - 9600
-  - 19200
-  - 38400
-  - 57600
-  - 74880
-  - 115200
   serialPorts: []
   listaPotenciometro: {fileID: 302046304}
   listaBoton: {fileID: 347696933}
@@ -3764,7 +3757,7 @@ GameObject:
   - component: {fileID: 748090407}
   - component: {fileID: 748090406}
   m_Layer: 0
-  m_Name: SampleUserPolling_ReadWrite
+  m_Name: AppUser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6133,6 +6126,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2568165836673107899, guid: 05cd6372e1680ed4cacffd9de010b241,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3909975090488225361, guid: 05cd6372e1680ed4cacffd9de010b241,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6695,7 +6693,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 761731610}
         m_MethodName: BaudRate
-        m_Mode: 3
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7214,6 +7212,149 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15af378e0608e724491ab7e9a41dfcc4, type: 3}
+--- !u!1 &1379771436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1379771439}
+  - component: {fileID: 1379771438}
+  - component: {fileID: 1379771437}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1379771437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379771436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fceefc3ed5ba6de498c6a5a12f55237b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invaderKilled: {fileID: 8300000, guid: 2940f977e8004ff4e92607944ab2bde0, type: 3}
+  explote: {fileID: 8300000, guid: 64640bd94b47c5f47ad4dece9dbf557c, type: 3}
+  shoot: {fileID: 8300000, guid: b10b118d8b2093e498eb2962411903a1, type: 3}
+--- !u!82 &1379771438
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379771436}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1379771439
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379771436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.01999998, y: -5.4700003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1381872536
 GameObject:
   m_ObjectHideFlags: 0
@@ -7308,7 +7449,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 272482843}
         m_MethodName: BaudRate
-        m_Mode: 3
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11692,6 +11833,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alien2
       objectReference: {fileID: 0}
+    - target: {fileID: 4343901012086644266, guid: be26a6b60ae5509479524a296a18bfb5,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 29092ad24d333e349896485add77188f,
+        type: 3}
     - target: {fileID: 6709250557339700866, guid: be26a6b60ae5509479524a296a18bfb5,
         type: 3}
       propertyPath: m_LocalPosition.x

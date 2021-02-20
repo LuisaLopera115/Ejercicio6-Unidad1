@@ -8,6 +8,7 @@ public class Alien : MonoBehaviour
 
     public Rigidbody2D rigibodiAlien;
     public GameObject alienBullet;
+    public GameObject enLamas;
 
     private float minFireRate = 3.0f;
     private float maxFireRate = 20.0f;
@@ -45,13 +46,14 @@ public class Alien : MonoBehaviour
             Gira(1);
             MueveAbajo();
         }
-    }
+        if (collision.gameObject.tag == "Player")
+        {
+            Instantiate(enLamas, collision.gameObject.transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
+        }
 
-    
-    void FixedUpdate()
-    {
-        
     }
+ 
     void Update()
     {
         timeStar = Time.time;
@@ -59,9 +61,7 @@ public class Alien : MonoBehaviour
         {
             fireWaitTime = fireWaitTime + Random.Range(minFireRate, maxFireRate);
             Instantiate(alienBullet, transform.position, Quaternion.identity);
-            
+            //  sonido de disparo 
         }
-        Debug.Log(timeStar.ToString("F2"));
-
     }
 }

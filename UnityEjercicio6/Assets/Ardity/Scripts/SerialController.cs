@@ -30,11 +30,11 @@ public class SerialController : MonoBehaviour
     public SerialStart serialStart;
     public void BaudRate(Int32 val)
     {
-        if (val == 0)
+        if (val == 1)
         {
             baudRate = 9600;
         }
-        if (val == 1)
+        if (val == 0)
         {
             baudRate = 19200;
         }
@@ -43,8 +43,7 @@ public class SerialController : MonoBehaviour
             baudRate = 38400;
         }
 
-        Debug.Log(val.ToString());
-        Debug.Log(baudRate.ToString());
+        //Debug.Log(val.ToString());
     }
     public void EntradaPuerto(Int32 val)
     {
@@ -58,7 +57,9 @@ public class SerialController : MonoBehaviour
     // ------------------------------------------------------------------------
     void OnEnable()
     {
-        Debug.Log(portName);
+        //Debug.Log(portName);
+
+        Debug.Log(baudRate.ToString());
         serialThread = new SerialThreadLines(portName,
                                                 baudRate,
                                                 reconnectionDelay,
