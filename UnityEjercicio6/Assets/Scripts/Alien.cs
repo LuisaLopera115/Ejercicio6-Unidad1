@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Alien : MonoBehaviour
 {
+    public Puntaje puntaje;
     float alienSpeed = 2f;
 
     public Rigidbody2D rigibodiAlien;
@@ -51,9 +52,18 @@ public class Alien : MonoBehaviour
             Instantiate(enLamas, collision.gameObject.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
         }
+        
 
     }
- 
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            puntaje.SumaPuntaje(10);
+            Destroy(collision.gameObject);
+        }
+    }
+
+
     void Update()
     {
         timeStar = Time.time;
