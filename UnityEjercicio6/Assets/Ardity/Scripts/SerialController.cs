@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using System;
 using System.Threading;
 using UnityEngine.UI;
 
@@ -7,10 +8,10 @@ public class SerialController : MonoBehaviour
 {
   
     [Tooltip("Port name with which the SerialPort object will be created.")]
-    public string portName = "COM3";
+    string portName = "COM3";
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
-    public int baudRate = 9600;
+    int baudRate = 0;
 
     [Tooltip("Reference to an scene object that will receive the events of connection, " +
              "disconnection and the messages from the serial device.")]
@@ -26,17 +27,29 @@ public class SerialController : MonoBehaviour
 
     protected Thread thread;
     protected SerialThreadLines serialThread;
-
-    public void EntradaPuerto(int val) {
-        if (val == 0)
-        {
-            portName = "COM3";
-        }
+    public SerialStart serialStart;
+    public void BaudRate(Int32 val)
+    {
         if (val == 1)
         {
-            portName = "COM7";
+            baudRate = 9600;
         }
+        if (val == 0)
+        {
+            baudRate = 19200;
+        }
+        if (val == 2)
+        {
+            baudRate = 38400;
+        }
+
+        //Debug.Log(val.ToString());
     }
+    public void EntradaPuerto(Int32 val)
+    {
+        portName = serialStart.serialPorts[val];
+    }
+    
     // ------------------------------------------------------------------------
     // Invoked whenever the SerialController gameobject is activated.
     // It creates a new thread that tries to connect to the serial device
@@ -44,13 +57,15 @@ public class SerialController : MonoBehaviour
     // ------------------------------------------------------------------------
     void OnEnable()
     {
+        //Debug.Log(portName);
+
+        Debug.Log(baudRate.ToString());
         serialThread = new SerialThreadLines(portName,
                                                 baudRate,
                                                 reconnectionDelay,
                                                 maxUnreadMessages);
         thread = new Thread(new ThreadStart(serialThread.RunForever));
         thread.Start();
-        Debug.Log(portName.ToString());
     }
 
     // ------------------------------------------------------------------------
@@ -108,7 +123,14 @@ public class SerialController : MonoBehaviour
     public string ReadSerialMessage()
     {
         // Read the next message from the queue
-        return (string)serialThread.ReadMessage();
+        try
+        {
+            return (string)serialThread.ReadMessage();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
     // ------------------------------------------------------------------------

@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class Alien : MonoBehaviour
 {
+    public Puntaje puntaje;
     float alienSpeed = 2f;
+
     public Rigidbody2D rigibodiAlien;
     public GameObject alienBullet;
-    private float minFireRate = 15.0f;
+    public GameObject enLamas;
+
+    private float minFireRate = 3.0f;
     private float maxFireRate = 20.0f;
-    private float fireWaitTime = 6.0f;
-    void Start()
+    private float fireWaitTime = 3.0f;
+    public float timeStar;
+    public bool activarTiempo = false;
+    //public bool EnemigosDisparan
+    void OnEnable()
     {
         rigibodiAlien = GetComponent<Rigidbody2D>();
         rigibodiAlien.velocity = new Vector2(1,0)* alienSpeed;
-        //fireWaitTime = fireWaitTime + Random.Range(minFireRate, maxFireRate);
+        fireWaitTime = fireWaitTime + Random.Range(minFireRate, maxFireRate);
     }
     // gira cada vez que coliciona con los muros
     void Gira(int direccion) {
@@ -40,17 +47,31 @@ public class Alien : MonoBehaviour
             Gira(1);
             MueveAbajo();
         }
-    }
-    void FixedUpdate()
-    {
-        if (Time.time > fireWaitTime)
+        if (collision.gameObject.tag == "Player")
         {
-            fireWaitTime = fireWaitTime + Random.Range(minFireRate, maxFireRate);
-            Instantiate(alienBullet,transform.position,Quaternion.identity);
+            Instantiate(enLamas, collision.gameObject.transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
+        }
+        
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            puntaje.SumaPuntaje(10);
+            Destroy(collision.gameObject);
         }
     }
+
+
     void Update()
     {
-        
+        timeStar = Time.time;
+        if (timeStar > fireWaitTime)
+        {
+            fireWaitTime = fireWaitTime + Random.Range(minFireRate, maxFireRate);
+            Instantiate(alienBullet, transform.position, Quaternion.identity);
+            //  sonido de disparo 
+        }
     }
 }

@@ -28,7 +28,6 @@ public class SerialThreadBytesProtocol : AbstractSerialThread
         if (serialPort.BytesToRead > 0)
         {
             serialPort.Read(buffer, 0, 1);
-            Debug.Log("Dispara");
             return buffer;
         }
         else{

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - bunker
   - enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
