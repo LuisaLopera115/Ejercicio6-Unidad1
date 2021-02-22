@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+
 
 public class BulletEnemy : MonoBehaviour
 {
     public GameObject enLamas;
+    public GameObject gameOver;
     void Start()
     {
         
@@ -24,12 +27,13 @@ public class BulletEnemy : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-
+            Instantiate(gameOver, collision.gameObject.transform.position, Quaternion.identity);
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.explote);
             Destroy(gameObject);
             Instantiate(enLamas, collision.gameObject.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
-            // Escena de game over 
+            Time.timeScale = 0;
+            SceneManager.LoadScene("GameOver");
         }
     }
 }

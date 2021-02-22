@@ -144,4 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enLamas: {fileID: 3857451591051410440, guid: 2e6234eb9685acf46986c32700765c7b, type: 3}
-  player: {fileID: 2568165836673107899, guid: 05cd6372e1680ed4cacffd9de010b241, type: 3}
+  gameOver: {fileID: 3462393126810218909, guid: 2708a1ce98ae6f442a06860d2334b4da,
+    type: 3}
