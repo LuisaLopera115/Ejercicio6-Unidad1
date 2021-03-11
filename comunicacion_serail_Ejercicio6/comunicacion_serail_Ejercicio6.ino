@@ -1,4 +1,4 @@
-int potenciometro = A0;
+  int potenciometro = A0;
 int valpotenciometro = 0;
 int valormap = 0;
 unsigned long previousMillis = 0;  
